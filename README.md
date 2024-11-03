@@ -1,12 +1,14 @@
-# LLM Fine-Tuning for Text Classification
+# LLM Fine-Tuning for Text Classification and Sentiment Analysis
 
 ## Project Overview
 
-This repository contains a TensorFlow implementation of fine-tuning the pre-trained BERT (Bidirectional Encoder Representations from Transformers) Large Language Model (LLM) on the AG News dataset for text classification.
+This repository contains a TensorFlow implementation of fine-tuning the pre-trained BERT (Bidirectional Encoder Representations from Transformers) Large Language Model (LLM) on the AG News dataset for text classification and on SST-2 (Stanford Sentiment Treebank) dataset for sentiment analysis.
 
 ## Dataset
 
 - AG News Dataset: A benchmark dataset for text classification, consisting of 120,000 news articles categorized into 4 classes (World, Sports, Business, and Sci/Tech)
+- Sentiment analysis on SST-2 dataset (binary classification: positive/negative)
+
 
 ## Implementation
 
