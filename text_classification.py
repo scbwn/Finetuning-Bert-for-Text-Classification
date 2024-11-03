@@ -27,7 +27,7 @@ def create_model(max_len, num_of_classes):
     return model
 
 # Load tokenized data
-from tokenization import data_loader
+from tokenization import data_loader_agnews
 x_train, x_val, x_test, y_train, y_val, y_test = data_loader(max_len)
 
 # Build model
