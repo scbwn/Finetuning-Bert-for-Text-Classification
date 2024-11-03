@@ -36,7 +36,7 @@ model.layers[2].trainable = True
 
 # Use Adam optimizer and Crossentropy loss
 model.compile(optimizer=Adam(learning_rate=5e-05, epsilon=1e-08, decay=0.01, clipnorm=1.0),
-              loss=CategoricalCrossentropy(from_logits=True),
+              loss=CategoricalCrossentropy(),
               metrics=CategoricalAccuracy('accuracy'))    
 
 # Train model
