@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 # Load raw data and tokenize using AutoTokenizer
-def data_loader(max_len):
+def data_loader_agnews(max_len):
     data = pd.read_csv("./agnews/train.csv").dropna()
     testdata = pd.read_csv("./agnews/test.csv").dropna()
 
@@ -16,6 +16,32 @@ def data_loader(max_len):
 
     x_test = testdata['Title'] + " " + testdata['Description']
     y_test = testdata['Class Index'].apply(lambda x: x-1).values # Classes need to begin from 0
+
+    # Import pretrained BERT model
+    from tensorflow.keras.utils import to_categorical
+    from transformers import AutoTokenizer
+
+    # Tokenization of input sentences (Truncate upto max_len and add special tokens at the beginning and end of sentences)
+    tokenizer = AutoTokenizer.from_pretrained('bert-base-cased')
+
+    z_train = tokenizer(text=x_train.tolist(), add_special_tokens=True, max_length=max_len, truncation=True, padding=True, 
+                    return_tensors='tf', return_token_type_ids=False, return_attention_mask=True, verbose=True)
+
+    z_val = tokenizer(text=x_val.tolist(), add_special_tokens=True, max_length=max_len, truncation=True, padding=True, 
+                    return_tensors='tf', return_token_type_ids=False, return_attention_mask=True, verbose=True)
+
+    z_test = tokenizer(text=x_test.tolist(), add_special_tokens=True, max_length=max_len, truncation=True, padding=True,
+                return_tensors='tf', return_token_type_ids=False, return_attention_mask=True, verbose=True)
+
+    return z_train, z_val, z_test, y_train, y_val, y_test
+
+def data_loader_sst2(max_len):
+    traindata = pd.read_parquet("./sst-2/train.parquet").dropna()
+    x_train, y_train = traindata['sentence'], traindata['label']
+    valdata = pd.read_parquet("./sst-2/validation.parquet").dropna()
+    x_val, y_val = valdata['sentence'], valdata['label']
+    testdata = pd.read_parquet("./sst-2/test.parquet").dropna()
+    x_test, y_test = testdata['sentence'], testdata['label']
 
     # Import pretrained BERT model
     from tensorflow.keras.utils import to_categorical
